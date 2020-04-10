@@ -1,0 +1,117 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!--<link rel="shortcut icon" href="../images/favicon.png" type="image/png">-->
+
+  <title>智能防寒服用户注册</title>
+
+  <link rel="stylesheet" href="{%static "lib/fontawesome/css/font-awesome.css"%}">
+  <link rel="stylesheet" href="{%static "lib/select2/select2.css"%}">
+
+  <link rel="stylesheet" href="{%static "css/quirk.css"%}">
+  <link href="{%static "css/bootstrap.min.css" %}" rel="stylesheet" />
+  
+    
+  
+    
+   
+  
+    
+  <link href="{%static "css/pages/login.css"%}" rel="stylesheet" />
+  <script src="{%static "lib/modernizr/modernizr.js"%}"></script>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="../lib/html5shiv/html5shiv.js"></script>
+  <script src="../lib/respond/respond.src.js"></script>
+  <![endif]-->
+</head>
+
+<body class="signwrapper">
+
+  <div class="sign-overlay"></div>
+  <div class="signpanel"></div>
+
+  <div class="signup">
+    <div class="row">
+      <div class="col-sm-7">
+        <div class="panel">
+          <div class="panel-heading">
+            <h1>智能防寒服云平台</h1>
+            <h4 class="panel-title">普通用户注册</h4>
+          </div>
+          <div class="panel-body">
+            <div id="login-content" class="clearfix">
+              <form class='form-login' action="/db_xyw/register/" method="post">
+                {% if message %}
+                  <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}   
+                {% csrf_token %}
+                                       
+                  
+                {{ register_form }}
+                  
+
+                
+                <div id="remember-me" class="pull-left">
+                  <input type="checkbox" name="checkbox" >
+                  <label class="ckbox" id="remember-label" for="remember">我已阅读用户须知</label>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-success btn-quirk btn-block">注册</button>
+                </div>
+                
+                <div id="login-extra">
+      
+                  <p><a href="{% url 'db_xyw:login' %}">已经是用户了？现在登录！</a></p>                      
+                </div> <!-- /login-extra -->
+              </form>
+            </div>
+          </div><!-- panel-body -->
+        </div><!-- panel -->
+      </div><!-- col-sm-5 -->
+      <div class="col-sm-5">
+        <div class="sign-sidebar">
+          <h2 class="signtitle mb20">用户须知</h2>
+          <p>本云平台基于电加热防寒服硬件，收集并可视化展示防寒服使用者的生理数据。</p>
+
+          <br>
+
+          <h3 class="reason">1. 普通用户</h3>
+          <p>如果您是电加热防寒服的使用者，您可以申请注册成为普通用户。普通用户可以在云平台上看到您本人在使用防寒服时的一些生理数据和可视化图像，便于您对于自身的身体状况和电加热服的加热控制有一个直观清晰的认识。</p>
+
+          <br>
+
+          <h3 class="reason">2. 高级用户</h3>
+          <p>如果您是电加热防寒服使用群体的管理人员，您可以申请注册成为高级用户。高级用户可以依照管理员为您分配的权限在云平台上看到一部分使用者群体的使用数据。同时，您也可以分析或下载这些数据，以便对使用者群体进行监控和有效管理。</p>
+
+          <hr class="invisible">
+
+          
+        </div><!-- sign-sidebar -->
+      </div>
+    </div>
+  </div><!-- signup -->
+
+
+
+
+<script src="{%static "lib/jquery/jquery.js"%}"></script>
+<script src="{%static "lib/bootstrap/js/bootstrap.js"%}"></script>
+<script src="{%static "lib/select2/select2.js"%}"></script>
+<!-- signup
+<script>
+$(function() {
+
+  // Select2 Box
+  $("select.form-control").select2({ minimumResultsForSearch: Infinity });
+
+});
+</script>
+ -->
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!--lib/templates/lib/detail.html-->
+
+
+<h1>Person List</h1>
+<table>
+    <tr>
+        <td>姓名</td>
+        <td>ID号</td>
+	<td>性别</td>
+	<td>年龄</td>
+	<td>籍贯</td>
+	<td>职业</td>
+    </tr>
+
+{% for person in person_list.all %}
+    <tr>
+    	<td>{{person.UserName}}</td>
+        <td>{{person.IDNumber}}</td>
+    	<td>{{person.sex}}</td>
+    	<td>{{person.age}}</td>
+    	<td>{{person.hometown}}</td>
+    	<td>{{person.job}}</td>
+        <td><a href="{% url 'db_xyw:delPerson' person.id %}">删除</a></td>
+    </tr>
+{% endfor %}
+</table>
+
+<form action="{% url 'db_xyw:addPerson' %}" method="post" name="addPerson">
+    {% csrf_token %}
+    <p><span>姓名：</span><input type="text" name="UserName"></p>
+    <p><span>ID号：</span><input type="number" name="IDNumber"></p>   
+    <p><span>性别：</span><input type="text" name="sex"></p>
+    <p><span>年龄：</span><input type="number" name="age"></p>
+    <p><span>籍贯：</span><input type="text" name="hometown"></p>
+    <p><span>职业：</span><input type="text" name="job"></p>
+    <input type="submit" value="添加">
+</form>
+
+

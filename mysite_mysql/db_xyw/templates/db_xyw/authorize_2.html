@@ -1,0 +1,457 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!--<link rel="shortcut icon" href="../images/favicon.png" type="image/png">-->
+
+  <title>智能防寒服云平台</title>
+
+  
+  <link rel="stylesheet" href="{%static "lib/fontawesome/css/font-awesome.css"%}">
+  <link rel="stylesheet" href="{%static "lib/weather-icons/css/weather-icons.css"%}">
+  
+  <link rel="stylesheet" href="{%static "lib/jquery-toggles/toggles-full.css"%}">
+  <link rel="stylesheet" href="{%static "lib/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css"%}">
+  <link rel="stylesheet" href="{%static "lib/select2/select2.css"%}">
+  
+
+  <link rel="stylesheet" href="{%static "css/quirk.css"%}">
+
+  <script src="{%static "lib/modernizr/modernizr.js"%}"></script>
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="../lib/html5shiv/html5shiv.js"></script>
+  <script src="../lib/respond/respond.src.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+<header>
+  <div class="headerpanel">
+
+    <div class="logopanel">
+      <h3><a href="{% url 'db_xyw:detail' %}">智能防寒服云平台</a></h3>
+    </div><!-- logopanel -->
+
+    <div class="headerbar">
+
+      <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+
+      
+      </div>
+
+      <div class="header-right">
+        <ul class="headermenu">
+          
+          <li>
+            <div class="btn-group">
+              <button type="button" class="btn btn-logged" data-toggle="dropdown">
+                
+                {{nick}}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu pull-right">
+                <li><a href="profile.html"><i class="glyphicon glyphicon-user"></i> 我的数据</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 账户设置</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> 帮助</a></li>
+                <li><a href="{% url 'db_xyw:logout' %}"><i class="glyphicon glyphicon-log-out"></i> 登出</a></li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <button id="chatview" class="btn btn-chat alert-notice">
+              <span class="badge-alert"></span>
+              <i class="fa fa-comments-o"></i>
+            </button>
+          </li>
+        </ul>
+      </div><!-- header-right -->
+    </div><!-- headerbar -->
+  </div><!-- header-->
+</header>
+
+<section>
+
+  <div class="leftpanel">
+    <div class="leftpanelinner">
+
+      <!-- ################## LEFT PANEL PROFILE ################## -->
+
+      <div class="media leftpanel-profile">
+        <div class="media-left">
+          <a href="#">
+            <img src="{%static "images/headshot.png"%}" alt="" class="media-object img-circle">
+          </a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">{{nick}} <a data-toggle="collapse" data-target="#loguserinfo" class="pull-right"><i class="fa fa-angle-down"></i></a></h4>
+          <span>管理员</span>
+        </div>
+      </div><!-- leftpanel-profile -->
+
+      <div class="leftpanel-userinfo collapse" id="loguserinfo">
+        <h5 class="sidebar-title">Address</h5>
+        <address>
+          4975 Cambridge Road
+          Miami Gardens, FL 33056
+        </address>
+        <h5 class="sidebar-title">Contact</h5>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <label class="pull-left">Email</label>
+            <span class="pull-right">me@themepixels.com</span>
+          </li>
+          <li class="list-group-item">
+            <label class="pull-left">Home</label>
+            <span class="pull-right">(032) 1234 567</span>
+          </li>
+          <li class="list-group-item">
+            <label class="pull-left">Mobile</label>
+            <span class="pull-right">+63012 3456 789</span>
+          </li>
+          <li class="list-group-item">
+            <label class="pull-left">Social</label>
+            <div class="social-icons pull-right">
+              <a href="#"><i class="fa fa-facebook-official"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-pinterest"></i></a>
+            </div>
+          </li>
+        </ul>
+      </div><!-- leftpanel-userinfo -->
+
+      <ul class="nav nav-tabs nav-justified nav-sidebar">
+        <li class="tooltips active" data-toggle="tooltip" title="Main Menu"><a data-toggle="tab" data-target="#mainmenu"><i class="tooltips fa fa-ellipsis-h"></i></a></li>
+        <li class="tooltips unread" data-toggle="tooltip" title="Check Mail"><a data-toggle="tab" data-target="#emailmenu"><i class="tooltips fa fa-envelope"></i></a></li>
+        <li class="tooltips" data-toggle="tooltip" title="Contacts"><a data-toggle="tab" data-target="#contactmenu"><i class="fa fa-user"></i></a></li>
+        <li class="tooltips" data-toggle="tooltip" title="Settings"><a data-toggle="tab" data-target="#settings"><i class="fa fa-cog"></i></a></li>
+        <li class="tooltips" data-toggle="tooltip" title="Log Out"><a href="signin.html"><i class="fa fa-sign-out"></i></a></li>
+      </ul>
+
+      <div class="tab-content">
+
+        <!-- ################# MAIN MENU ################### -->
+
+        <div class="tab-pane active" id="mainmenu">
+          <h5 class="sidebar-title">MAIN MENU</h5>
+          <ul class="nav nav-pills nav-stacked nav-quirk">
+            <li><a href="{% url 'db_xyw:adminisdetail' %}"><i class="fa fa-home"></i> <span>用户基本信息</span></a>
+              <ul class="children">
+                <li><a href="{% url 'db_xyw:adminisdetail' %}">普通用户</a></li>
+                <li><a href="{% url 'db_xyw:adminisdetail_2' %}">高级用户</a></li>
+                <li><a href="{% url 'db_xyw:adminisdetail_3' %}">管理员</a></li>                
+              </ul>
+            </li>
+            <li class="active"><a href="{% url 'db_xyw:authorize' %}"><i class="fa fa-cube"></i> <span>用户授权</span></a>
+              <ul class="children">
+                <li><a href="{% url 'db_xyw:authorize' %}">高级用户授权</a></li>               
+                <li class="active"><a href="{% url 'db_xyw:authorize_2' %}">管理员授权</a></li>                
+              </ul>
+            </li>
+           <!-- <li><a href="maps.html"><i class="fa fa-map-marker"></i> <span>Maps</span></a></li>-->
+          
+            <li class="nav-parent">
+              <a href=""><i class="fa fa-check-square"></i> <span>普通用户详细信息</span></a>
+              <ul class="children">
+                <li><a href="general-forms.html">Form Elements</a></li>
+                <li><a href="form-validation.html">Form Validation</a></li>
+                <li><a href="form-wizards.html">Form Wizards</a></li>
+                <li><a href="wysiwyg.html">Text Editor</a></li>
+              </ul>
+            </li>
+            <li class="nav-parent"><a href=""><i class="fa fa-suitcase"></i> <span>个人账户信息</span></a>
+              <ul class="children">
+                <li><a href="buttons.html">Buttons</a></li>
+                <li><a href="icons.html">Icons</a></li>
+                <li><a href="typography.html">Typography</a></li>
+                <li><a href="alerts.html">Alerts &amp; Notifications</a></li>
+                <li><a href="tabs-accordions.html">Tabs &amp; Accordions</a></li>
+                <li><a href="sliders.html">Sliders</a></li>
+                <li><a href="graphs.html">Graphs &amp; Charts</a></li>
+                <li><a href="panels.html">Panels</a></li>
+                <li><a href="extras.html">Extras</a></li>
+              </ul>
+            </li>
+            
+            <li class="nav-parent"><a href=""><i class="fa fa-file-text"></i> <span>登出</span></a>
+              <ul class="children">
+                <li><a href="asset-manager.html">Asset Manager</a></li>
+                <li><a href="people-directory.html">People Directory</a></li>
+                <li><a href="timeline.html">Timeline</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="blank.html">Blank Page</a></li>
+                <li><a href="notfound.html">404 Page</a></li>
+                <li><a href="signin.html">Sign In</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- tab-pane -->
+
+        <!-- ######################## EMAIL MENU ##################### -->
+
+        <div class="tab-pane" id="emailmenu">
+          <div class="sidebar-btn-wrapper">
+            <a href="compose.html" class="btn btn-danger btn-block">Compose</a>
+          </div>
+
+          <h5 class="sidebar-title">Mailboxes</h5>
+          <ul class="nav nav-pills nav-stacked nav-quirk nav-mail">
+            <li><a href="email.html"><i class="fa fa-inbox"></i> <span>Inbox (3)</span></a></li>
+            <li><a href="email.html"><i class="fa fa-pencil"></i> <span>Draft (2)</span></a></li>
+            <li><a href="email.html"><i class="fa fa-paper-plane"></i> <span>Sent</span></a></li>
+          </ul>
+
+          <h5 class="sidebar-title">Tags</h5>
+          <ul class="nav nav-pills nav-stacked nav-quirk nav-label">
+            <li><a href="#"><i class="fa fa-tags primary"></i> <span>Communication</span></a></li>
+            <li><a href="#"><i class="fa fa-tags success"></i> <span>Updates</span></a></li>
+            <li><a href="#"><i class="fa fa-tags warning"></i> <span>Promotions</span></a></li>
+            <li><a href="#"><i class="fa fa-tags danger"></i> <span>Social</span></a></li>
+          </ul>
+        </div><!-- tab-pane -->
+
+        <!-- ################### CONTACT LIST ################### -->
+
+        <div class="tab-pane" id="contactmenu">
+          <div class="input-group input-search-contact">
+            <input type="text" class="form-control" placeholder="Search contact">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+            </span>
+          </div>
+          <h5 class="sidebar-title">My Contacts</h5>
+          <ul class="media-list media-list-contacts">                                 
+            <li class="media">
+              <a href="#">
+                <div class="media-left">
+                  <img class="media-object img-circle" src="../images/photos/user7.png" alt="">
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">Pamela J. Stump</h4>
+                  <span><i class="fa fa-mobile"></i> +1773-879-2491</span>
+                </div>
+              </a>
+            </li>
+            <li class="media">
+              <a href="#">
+                <div class="media-left">
+                  <img class="media-object img-circle" src="../images/photos/user8.png" alt="">
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">Refugio C. Burgess</h4>
+                  <span><i class="fa fa-mobile"></i> +1660-627-7184</span>
+                </div>
+              </a>
+            </li>           
+          </ul>
+        </div><!-- tab-pane -->
+
+        <!-- #################### SETTINGS ################### -->
+
+        <div class="tab-pane" id="settings">
+          <h5 class="sidebar-title">General Settings</h5>
+          <ul class="list-group list-group-settings">
+            <li class="list-group-item">
+              <h5>Daily Newsletter</h5>
+              <small>Get notified when someone else is trying to access your account.</small>
+              <div class="toggle-wrapper">
+                <div class="leftpanel-toggle toggle-light success"></div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <h5>Call Phones</h5>
+              <small>Make calls to friends and family right from your account.</small>
+              <div class="toggle-wrapper">
+                <div class="leftpanel-toggle-off toggle-light success"></div>
+              </div>
+            </li>
+          </ul>
+          <h5 class="sidebar-title">Security Settings</h5>
+          <ul class="list-group list-group-settings">
+            <li class="list-group-item">
+              <h5>Login Notifications</h5>
+              <small>Get notified when someone else is trying to access your account.</small>
+              <div class="toggle-wrapper">
+                <div class="leftpanel-toggle toggle-light success"></div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <h5>Phone Approvals</h5>
+              <small>Use your phone when login as an extra layer of security.</small>
+              <div class="toggle-wrapper">
+                <div class="leftpanel-toggle toggle-light success"></div>
+              </div>
+            </li>
+          </ul>
+        </div><!-- tab-pane -->
+
+
+      </div><!-- tab-content -->
+
+    </div><!-- leftpanelinner -->
+  </div><!-- leftpanel -->
+
+  <div class="mainpanel">
+
+    <!--<div class="pageheader">
+      <h2><i class="fa fa-home"></i> Dashboard</h2>
+    </div>-->
+
+    <div class="contentpanel">
+
+      
+
+          <div class="panel panel-success">                                                                                  
+            <div class="panel-heading">
+              <h4 class="panel-title">管理员授权</h4>              
+            </div>
+            <div class="panel-body">
+              <div class="table-responsive">
+                <table id="dataTable1" class="table table-bordered table-striped-col">
+                  <thead>
+                    <tr>
+                      <th>用户名</th>
+                      <th>昵称</th>                      
+                      <th>注册时间</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    {% for person in person_list.all %}
+                      <tr>
+                        <td>{{person.UserName}}</td>
+                        <td>{{person.NickName}}</td>
+                        <td>{{person.localtime}}</td>
+                        <td><a href="{% url 'db_xyw:delTemp' person.id %}">通过</a></td>
+                      </tr>
+
+                    {% endfor %}
+
+                </tbody>
+                </table>
+              </div>
+
+            </div><!-- panel -->
+            
+          </div>
+    </div><!-- contentpanel -->
+
+  </div><!-- mainpanel -->
+
+  
+
+</section>
+
+<script src="{%static "lib/jquery/jquery.js"%}"></script>
+<script src="{%static "lib/jquery-ui/jquery-ui.js"%}"></script>
+<script src="{%static "lib/bootstrap/js/bootstrap.js"%}"></script>
+<script src="{%static "lib/jquery-toggles/toggles.js"%}"></script>
+
+
+<script src="{%static "lib/datatables/jquery.dataTables.js"%}"></script>
+<script src="{%static "lib/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js"%}"></script>
+<script src="{%static "lib/select2/select2.js"%}"></script>
+<script>
+$(document).ready(function() {
+
+  'use strict';
+
+  $('#dataTable1').DataTable({
+          "processing": true,//数据加载时显示进度条
+          "searching": true,//启用搜索功能
+          "serverSide": false,//启用本地分页（使用Ajax服务端进行分页需要设置未true）
+          "info":true, //分页信息提示等等
+          "paging":   true,//是否分页
+          "pagingType":   "full_numbers",//分页时会有首页，尾页，上一页和下一页四个按钮,加上数字按钮
+          "bLengthChange": true, //开关，是否显示每页显示多少条数据的下拉框
+          "aLengthMenu": [[2, 5, 10, 15], [2, 5, 10, 15]],//设置每页显示数据条数的下拉选项
+          'iDisplayLength': 5, //每页初始显示5条记录
+          "bSort": true, //是否可排序
+          //"aoColumnDefs": [ { "bSortable": false, "aTargets": [ 0 ] }],//进制某列排序
+         // "aaSorting": [[1, "asc"]],//指定某列按照什么规则排序
+          "oLanguage":{  //将datatable的英语信息转换未中文
+              "sProcessing": "处理中...",
+              "sLengthMenu": "显示 _MENU_ 项结果",
+              "sZeroRecords": "没有匹配结果",
+              "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+              "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+              "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+              "sInfoPostFix": "",
+              "sSearch": "搜索:",
+              "sUrl": "",
+              "sEmptyTable": "表中数据为空",
+              "sLoadingRecords": "载入中...",
+              "sInfoThousands": ",",
+              "oPaginate": {
+              "sFirst": "  首页  ",
+              "sPrevious": "  上一页  ",
+              "sNext": "   下一页  ",
+              "sLast": "  末页  "
+              },
+              "oAria": {
+              "sSortAscending": ": 以升序排列此列",
+              "sSortDescending": ": 以降序排列此列"
+              }
+          }
+  });
+
+  var exRowTable = $('#exRowTable').DataTable({
+    responsive: true,
+    'fnDrawCallback': function(oSettings) {
+      $('#exRowTable_paginate ul').addClass('pagination-active-success');
+    },
+    'ajax': 'ajax/objects.txt',
+    'columns': [{
+      'class': 'details-control',
+      'orderable': false,
+      'data': null,
+      'defaultContent': ''
+    },
+    { 'data': 'username' },
+    { 'data': 'nickname' },
+    { 'data': 'sex' },
+    { 'data': 'age'},
+    { 'data': 'height' },
+    { 'data': 'weight' },
+    { 'data': 'time' }
+    ],
+    'order': [[1, 'asc']]
+  });
+
+  // Add event listener for opening and closing details
+  $('#exRowTable tbody').on('click', 'td.details-control', function () {
+    var tr = $(this).closest('tr');
+    var row = exRowTable.row( tr );
+
+    if ( row.child.isShown() ) {
+      // This row is already open - close it
+      row.child.hide();
+      tr.removeClass('shown');
+    } else {
+      // Open this row
+      row.child( format(row.data()) ).show();
+      tr.addClass('shown');
+    }
+  });
+
+  function format (d) {
+    // `d` is the original data object for the row
+    return '<h4>'+d.name+'<small>'+d.position+'</small></h4>'+
+    '<p class="nomargin">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>';
+  }
+
+  // Select2
+  $('select').select2({ minimumResultsForSearch: Infinity });
+
+});
+</script>
+</body>
+</html>
