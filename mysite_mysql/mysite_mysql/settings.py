@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$&81yh%shym6*0rber#u%a!o6eo2%+3^4))ld*r1!0b*^s)1$0'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.105','127.0.0.1','49.235.245.224','localhost','0.0.0.0:8000']
+ALLOWED_HOSTS = [your host]
 
 
 # Application definition
@@ -80,9 +80,9 @@ DATABASES = {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
-        'NAME': 'znfhf', #数据库名称
-        'USER':'xiangyw', # 连接数据库的用户名称
-        'PASSWORD':'123',  # 用户密码
+        'NAME': '', #数据库名称
+        'USER':'', # 连接数据库的用户名称
+        'PASSWORD':'',  # 用户密码
         'HOST':'127.0.0.1', # 访问的数据库的主机的ip地址
         'PORT':'8080', # 默认mysql访问端口
         'OPTIONS': {'isolation_level': None},
